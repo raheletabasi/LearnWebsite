@@ -1,0 +1,24 @@
+﻿@model LearnWebsite.Data.Entities.User.User
+
+@{
+    ViewData["Title"] = "SuccessRegister";
+}
+
+<h2>ثبت نام موفق</h2>
+
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">تاپ لرن</a></li>
+            <li class="breadcrumb-item active" aria-current="page">پایان ثبت نام</li>
+        </ul>
+    </nav>
+</div>
+
+<div class="alert alert-success" style="text-align:justify-all">
+    <p> @Model.UserName عزیز ! </p>
+    <p> ثبت نام شما با موفقیت به پایان رسید </p>
+    <p> جهت فعال سازی حساب کاری خود به ایمیل خود وارد شوید و بر روی لینک ایمیل فعال سازی ارسال شد کلیک نمایید </p>
+    <P> با سپاس - گروه آموزشی </P>
+</div> 
+

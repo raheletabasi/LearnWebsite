@@ -2,6 +2,7 @@
 using LearnWebsite.Core.Security;
 using LearnWebsite.Core.Services.Interfaces;
 using LearnWebsite.Core.Utility.Convertor;
+using LearnWebsite.Core.Utility.Generator;
 using LearnWebsite.Data.Contexts;
 using LearnWebsite.Data.Entities.User;
 using System;
@@ -19,6 +20,23 @@ namespace LearnWebsite.Core.Services
         public UserService(LearnWebsiteContext learnWebsiteContext)
         {
             _context = learnWebsiteContext;
+        }
+
+        public bool AccountActivation(string activeCode)
+        {
+            var user = _context.Users.SingleOrDefault(usr => usr.ActivateCode == activeCode);
+            
+            if(user != null || user.IsActive)
+            {
+                user.IsActive = true;
+                user.ActivateCode = Generator.CodeGenerator();
+
+                _context.SaveChanges();
+
+                return true;
+            }
+
+            return false;
         }
 
         public int AddUser(User user)

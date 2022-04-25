@@ -18,5 +18,11 @@ namespace LearnWebsite.Data.Contexts
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<UserRole>().HasKey(e => new { e.RoleId, e.UserId });
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

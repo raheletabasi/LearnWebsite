@@ -80,7 +80,10 @@ namespace LearnWebsite.Web.Controllers
             if (userlogin != null)
             {
                 if (userlogin.IsActive)
-                    return RedirectToAction("/");
+                {
+                    ViewBag.IsSuccess = true;
+                    return View();
+                }
                 else
                 {
                     ModelState.AddModelError("Email", "حساب کاربری شما فعال نمی باشد");
@@ -89,6 +92,14 @@ namespace LearnWebsite.Web.Controllers
             }
             ModelState.AddModelError("Email", $"ایمیل {loginViewModel.Email} در سامانه ثبت نشد است");
             return View(loginViewModel);
+        }
+        #endregion
+
+        #region Active Account
+        public IActionResult AccountActivation(string id)
+        {
+            ViewBag.IsActive = _userService.AccountActivation(id);
+            return View();
         }
         #endregion
     }

@@ -16,6 +16,18 @@
 <main class="client-page">
     <div class="container-content">
 
+        @if (ViewBag.IsSuccess != null)
+        { 
+            <div class="help-block">
+                <p> ورود با موفقیت انجام شد </p>
+            </div>
+
+            <script>
+                var delay = 5000;
+                setTimeout(function () { window.location = "https://localhost:44344/" }, delay);
+            </script>
+        }
+
         <header><h2> ورود به سایت </h2></header>
 
         <div class="form-layer">

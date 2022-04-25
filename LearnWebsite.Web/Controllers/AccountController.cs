@@ -91,5 +91,14 @@ namespace LearnWebsite.Web.Controllers
             return View(loginViewModel);
         }
         #endregion
+
+        #region Active Account
+        public IActionResult AccountActivation(string id)
+        {
+            ViewBag.IsActive = _userService.AccountActivation(id);
+            return View();
+
+        }
+        #endregion
     }
 }

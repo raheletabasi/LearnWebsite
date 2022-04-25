@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LearnWebsite.Core.Services.Interfaces;
+using LearnWebsite.Core.Services;
 
 namespace LearnWebsite.Web
 {
@@ -33,6 +35,10 @@ namespace LearnWebsite.Web
             {
                 option.UseSqlServer(_configuration.GetConnectionString("LearnWebsiteConnectionString"));
             });
+            #endregion
+
+            #region IoC
+            services.AddTransient<IUserService, UserService>();
             #endregion
         }
 

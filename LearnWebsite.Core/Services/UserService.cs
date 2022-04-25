@@ -1,5 +1,6 @@
 ﻿using LearnWebsite.Core.Services.Interfaces;
 using LearnWebsite.Data.Contexts;
+using LearnWebsite.Data.Entities.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,14 @@ namespace LearnWebsite.Core.Services
         public UserService(LearnWebsiteContext learnWebsiteContext)
         {
             _context = learnWebsiteContext;
+        }
+
+        public int AddUser(User user)
+        {
+            _context.Users.Add(user);
+            _context.SaveChanges();
+
+            return user.UserId;
         }
 
         public bool IsExistEmail(string email)

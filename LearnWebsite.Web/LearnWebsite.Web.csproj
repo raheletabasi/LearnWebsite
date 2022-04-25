@@ -38,4 +38,8 @@
     <ProjectReference Include="..\LearnWebsite.Data\LearnWebsite.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\UserAvatar\" />
+  </ItemGroup>
+
 </Project>

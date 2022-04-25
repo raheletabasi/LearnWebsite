@@ -1,4 +1,7 @@
-﻿using LearnWebsite.Core.Services.Interfaces;
+﻿using LearnWebsite.Core.DTOs;
+using LearnWebsite.Core.Security;
+using LearnWebsite.Core.Services.Interfaces;
+using LearnWebsite.Core.Utility.Convertor;
 using LearnWebsite.Data.Contexts;
 using LearnWebsite.Data.Entities.User;
 using System;
@@ -34,6 +37,14 @@ namespace LearnWebsite.Core.Services
         public bool IsExistUserName(string userName)
         {
             return _context.Users.Any(usr => usr.UserName == userName);
+        }
+
+        public User LoginUser(LoginViewModel user)
+        {
+            string hashPassword = PasswordHelper.EncodePasswordMd5(user.Password);
+            string email = FixedText.FixEmail(user.Email);
+
+            return _context.Users.SingleOrDefault(usr => usr.Email == email && usr.Password == hashPassword);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using LearnWebsite.Data.Entities.User;
+﻿using LearnWebsite.Core.DTOs;
+using LearnWebsite.Data.Entities.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,6 @@ namespace LearnWebsite.Core.Services.Interfaces
         bool IsExistUserName(string userName);
         bool IsExistEmail(string email);
         int AddUser(User user);
+        User LoginUser(LoginViewModel user);
     }
 }

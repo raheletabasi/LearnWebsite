@@ -12,6 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using LearnWebsite.Core.Services.Interfaces;
 using LearnWebsite.Core.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace LearnWebsite.Web
 {
@@ -40,6 +41,20 @@ namespace LearnWebsite.Web
             #region IoC
             services.AddTransient<IUserService, UserService>();
             #endregion
+
+            #region Athentication
+            services.AddAuthentication(option =>
+            {
+                option.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                option.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                option.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            }).AddCookie(cookie =>
+            {
+                cookie.LoginPath = "/Login";
+                cookie.LogoutPath = "/Logout";
+                cookie.ExpireTimeSpan = TimeSpan.FromHours(168); // one Week
+            });
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,8 +64,9 @@ namespace LearnWebsite.Web
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseRouting();
             app.UseStaticFiles();
+            app.UseAuthentication();
+            app.UseRouting();            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

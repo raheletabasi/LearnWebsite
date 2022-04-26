@@ -5,6 +5,10 @@ using LearnWebsite.Data.Entities.User;
 using LearnWebsite.Core.Utility.Convertor;
 using LearnWebsite.Core.Utility.Generator;
 using LearnWebsite.Core.Security;
+using System.Collections.Generic;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 
 namespace LearnWebsite.Web.Controllers
 {
@@ -81,6 +85,21 @@ namespace LearnWebsite.Web.Controllers
             {
                 if (userlogin.IsActive)
                 {
+                    var claims = new List<Claim>()
+                    {
+                        new Claim(ClaimTypes.NameIdentifier, userlogin.UserId.ToString()),
+                        new Claim(ClaimTypes.Name, userlogin.UserName)
+                    };
+
+                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var principal = new ClaimsPrincipal(identity);
+                    var properties = new AuthenticationProperties
+                    {
+                        IsPersistent = loginViewModel.RememberMe
+                    };
+
+                    HttpContext.SignInAsync(principal, properties);
+
                     ViewBag.IsSuccess = true;
                     return View();
                 }
@@ -94,6 +113,12 @@ namespace LearnWebsite.Web.Controllers
             return View(loginViewModel);
         }
         #endregion
+
+        public IActionResult Logout()
+        {
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("/Login");
+        }
 
         #region Active Account
         public IActionResult AccountActivation(string id)

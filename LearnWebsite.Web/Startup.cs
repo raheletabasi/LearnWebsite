@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using LearnWebsite.Core.Services.Interfaces;
 using LearnWebsite.Core.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using LearnWebsite.Core.Utility.Convertor;
 
 namespace LearnWebsite.Web
 {
@@ -40,6 +41,7 @@ namespace LearnWebsite.Web
 
             #region IoC
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IViewRenderService, RenderViewToString>();
             #endregion
 
             #region Athentication

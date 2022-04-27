@@ -9,16 +9,19 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
+using LearnWebsite.Core.Utility.Sender;
 
 namespace LearnWebsite.Web.Controllers
 {
     public class AccountController : Controller
     {
         IUserService _userService;
+        IViewRenderService _viewRenderService;
 
-        public AccountController(IUserService userService)
+        public AccountController(IUserService userService, IViewRenderService viewRenderService)
         {
             _userService = userService;
+            _viewRenderService = viewRenderService;
         }
 
         #region Register
@@ -60,9 +63,12 @@ namespace LearnWebsite.Web.Controllers
 
                 _userService.AddUser(user);
 
-                //TODO : Send Activation Code With Email
+            #region Send Activation Code Email
+            string body = _viewRenderService.RenderToStringAsync("ActivationCodeEmail", user);
+            SendEmail.Send(user.Email,"فعال سازی حساب کاربری",body);
+            #endregion
 
-                return View("SuccessRegister",user);
+            return View("SuccessRegister",user);
             }
         #endregion
 

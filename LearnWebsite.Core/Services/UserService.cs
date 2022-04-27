@@ -26,7 +26,7 @@ namespace LearnWebsite.Core.Services
         {
             var user = _context.Users.SingleOrDefault(usr => usr.ActivateCode == activeCode);
             
-            if(user != null || user.IsActive)
+            if(user != null || (user != null && user.IsActive))
             {
                 user.IsActive = true;
                 user.ActivateCode = Generator.CodeGenerator();

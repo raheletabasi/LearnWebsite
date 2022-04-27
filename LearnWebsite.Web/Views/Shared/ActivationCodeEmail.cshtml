@@ -1,0 +1,15 @@
+﻿@model LearnWebsite.Data.Entities.User.User
+
+@{
+    ViewData["Title"] = "ایمیل فعال سازی";
+}
+
+<h2>@Model.UserName عزیز</h2>
+<div class="alert alert-success" >
+    <p> ثبت نام شما سامانه با موفقیت به پایان رسید. </p>
+    <p> جهت فعال سازی کاربری خود بر روی لینک زیر کلیک نمایید : </p>
+    <p><a href="https://localhost:44344/Account/AccountActivation/@Model.ActivateCode"> فعال سازی حساب کاربری </a></p>
+    <br/>
+    <p>با سپاس از شما - گروه آموزشی</p>
+</div>
+

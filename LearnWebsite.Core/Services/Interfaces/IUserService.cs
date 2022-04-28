@@ -15,5 +15,8 @@ namespace LearnWebsite.Core.Services.Interfaces
         int AddUser(User user);
         User LoginUser(LoginViewModel user);
         bool AccountActivation(string activeCode);
+        User GetUserByEmail(string email);
+        User GetUserByActiveCode(string activeCode);
+        void UpdateUser(User user);
     }
 }

@@ -47,6 +47,18 @@ namespace LearnWebsite.Core.Services
             return user.UserId;
         }
 
+        public User GetUserByActiveCode(string activeCode)
+        {
+            return _context.Users.SingleOrDefault(usr => usr.ActivateCode == activeCode);
+        }
+
+        public User GetUserByEmail(string email)
+        {
+            var userEmail = FixedText.FixEmail(email);
+
+            return _context.Users.SingleOrDefault(usr => usr.Email == userEmail);
+        }
+
         public bool IsExistEmail(string email)
         {
             return _context.Users.Any(usr => usr.Email == email);
@@ -63,6 +75,12 @@ namespace LearnWebsite.Core.Services
             string email = FixedText.FixEmail(user.Email);
 
             return _context.Users.SingleOrDefault(usr => usr.Email == email && usr.Password == hashPassword);
+        }
+
+        public void UpdateUser(User user)
+        {
+            _context.Users.Update(user);
+            _context.SaveChanges();
         }
     }
 }

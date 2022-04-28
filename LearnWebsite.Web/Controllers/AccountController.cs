@@ -64,7 +64,7 @@ namespace LearnWebsite.Web.Controllers
                 _userService.AddUser(user);
 
             #region Send Activation Code Email
-            string body = _viewRenderService.RenderToStringAsync("ActivationCodeEmail", user);
+            string body = _viewRenderService.RenderToStringAsync("_ActivationCodeEmail", user);
             SendEmail.Send(user.Email,"فعال سازی حساب کاربری",body);
             #endregion
 
@@ -130,6 +130,59 @@ namespace LearnWebsite.Web.Controllers
         public IActionResult AccountActivation(string id)
         {
             ViewBag.IsActive = _userService.AccountActivation(id);
+            return View();
+        }
+        #endregion
+
+        #region ForgetPassword
+        [Route("ForgetPassword")]
+        public IActionResult ForgetPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Route("ForgetPassword")]
+        public IActionResult ForgetPassword(ForgetpasswordViewModel forgetpasswordViewModel)
+        {
+            if(!ModelState.IsValid)
+                return View(forgetpasswordViewModel);
+
+            User user = _userService.GetUserByEmail(forgetpasswordViewModel.Email);
+            if (user == null)
+            {
+                ModelState.AddModelError("Email", $"ایمیل {forgetpasswordViewModel.Email} در سامانه ثبت نمی باشد");
+                return View(forgetpasswordViewModel);
+            }
+
+            string body = _viewRenderService.RenderToStringAsync("_ForgetPasswordEmail", user);
+            SendEmail.Send(user.Email, "بازیابی کلمه عبور", body);
+
+            ViewBag.IsSuccess = true;
+
+            return View();
+        }
+        #endregion
+
+        #region ResetPassword
+        public IActionResult ResetPassword(string id)
+        {
+            return View(new ResetPasswordViewModel() { ActiveCode = id });
+        }
+
+        [HttpPost]
+        public IActionResult ResetPassword(ResetPasswordViewModel resetPasswordViewModel)
+        {
+            if (!ModelState.IsValid)
+                return View(resetPasswordViewModel);
+
+            User user = _userService.GetUserByActiveCode(resetPasswordViewModel.ActiveCode);
+
+            if (user == null)
+                return NotFound();
+
+            user.Password = PasswordHelper.EncodePasswordMd5(resetPasswordViewModel.RePassword);
+            ViewBag.IsSuccess = true;
             return View();
         }
         #endregion

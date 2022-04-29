@@ -19,7 +19,7 @@ namespace LearnWebsite.Data.Entities.User
 
         [Display(Name ="عنوان نقش")]
         [MaxLength(200,ErrorMessage ="{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
-        [Required(ErrorMessage = "تمکیل نمودن فیلد {0} الزامی می باشد")]
+        [Required(ErrorMessage = "تکمیل نمودن فیلد {0} الزامی می باشد")]
         public string RoleTitle { get; set; }
 
 

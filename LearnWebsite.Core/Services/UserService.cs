@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static LearnWebsite.Core.DTOs.UserPanelViewModel;
 
 namespace LearnWebsite.Core.Services
 {
@@ -47,6 +48,17 @@ namespace LearnWebsite.Core.Services
             return user.UserId;
         }
 
+        public SideBarViewModel GetSideBar(string User)
+        {
+            return _context.Users.Where(usr => usr.UserName == User).Select(usr => 
+                new SideBarViewModel() 
+                {  
+                    UserName = usr.UserName,
+                    RegisteDate = usr.RegisterDate.ToShamsi(),
+                    Avatar = usr.UserAvatar
+                }).Single();               
+        }
+
         public User GetUserByActiveCode(string activeCode)
         {
             return _context.Users.SingleOrDefault(usr => usr.ActivateCode == activeCode);
@@ -57,6 +69,26 @@ namespace LearnWebsite.Core.Services
             var userEmail = FixedText.FixEmail(email);
 
             return _context.Users.SingleOrDefault(usr => usr.Email == userEmail);
+        }
+
+        public User GetUserByUserName(string userName)
+        {
+            return _context.Users.SingleOrDefault(usr => usr.UserName == userName);
+        }
+
+        public UserInformationViewModel GetUserInformation(string userName)
+        {
+            User userInformation = GetUserByUserName(userName);
+
+            UserInformationViewModel userInformationViewModel = new UserInformationViewModel()
+            {
+                UserName = userInformation.UserName,
+                Email = userInformation.Email,
+                RegisterDate = userInformation.RegisterDate.ToShamsi(),
+                CashWallet = 0
+            };
+
+            return userInformationViewModel;
         }
 
         public bool IsExistEmail(string email)

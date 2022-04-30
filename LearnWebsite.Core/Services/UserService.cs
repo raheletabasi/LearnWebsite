@@ -7,6 +7,7 @@ using LearnWebsite.Data.Contexts;
 using LearnWebsite.Data.Entities.User;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,9 +49,32 @@ namespace LearnWebsite.Core.Services
             return user.UserId;
         }
 
+        public bool CheckDuplicateEmail(int userId, string email)
+        {
+            return _context.Users.Any(usr => usr.Email == email && usr.UserId != userId);
+        }
+
+        public bool CheckDuplicateUser(int userId, string userName)
+        {
+            return _context.Users.Any(usr => usr.UserName == userName && usr.UserId != userId);
+        }
+
+        public EditProfileViewModel GetInfoForEdit(string userName)
+        {
+            return _context.Users.Where(usr => usr.UserName == userName)
+                .Select(usr =>
+                new EditProfileViewModel()
+                {
+                    UserName = usr.UserName,
+                    Email = usr.Email,
+                    AvatarName = usr.UserAvatar
+                }).Single();
+        }
+
         public SideBarViewModel GetSideBar(string User)
         {
-            return _context.Users.Where(usr => usr.UserName == User).Select(usr => 
+            return _context.Users.Where(usr => usr.UserName == User)
+                .Select(usr => 
                 new SideBarViewModel() 
                 {  
                     UserName = usr.UserName,
@@ -107,6 +131,33 @@ namespace LearnWebsite.Core.Services
             string email = FixedText.FixEmail(user.Email);
 
             return _context.Users.SingleOrDefault(usr => usr.Email == email && usr.Password == hashPassword);
+        }
+
+        public void UpdateProfilePanel(string oldUserName, EditProfileViewModel profile)
+        {
+            if (profile.AvatarUploaded != null)
+            {
+                string imagePath = string.Empty;
+                if (profile.AvatarName != "Default.jpg")
+                {
+                    imagePath = Path.Combine(Directory.GetCurrentDirectory(), "/wwwroot/UserAvatar/" + profile.AvatarName);
+                    if (File.Exists(imagePath))
+                        File.Delete(imagePath);
+                }
+                profile.AvatarName = Generator.CodeGenerator() + Path.GetExtension(profile.AvatarUploaded.FileName);
+                imagePath = Path.Combine(Directory.GetCurrentDirectory(), "/wwwroot/UserAvatar/" + profile.AvatarName) ;
+                using (var stream = new FileStream(imagePath, FileMode.Create))
+                {
+                    profile.AvatarUploaded.CopyTo(stream);
+                }
+            }
+
+            var user = GetUserByUserName(oldUserName);
+            user.UserName = profile.UserName;
+            user.Email = profile.Email;
+            user.UserAvatar = profile.AvatarName;
+
+            UpdateUser(user);
         }
 
         public void UpdateUser(User user)

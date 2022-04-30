@@ -12,10 +12,10 @@
         <div class="avatar-layer">
             <div class="img-layer">
                 <a href="" class="change-image"><i class="zmdi zmdi-edit"></i></a>
-                <img src="/UserAvatar/@(Model.Avatar).jpg">
+                <img src="/UserAvatar/@(Model.Avatar)" width="150px" height="150px">
             </div>
             <div class="detail">
-                <span> @Model.UserName </span>
+                <span> @Model.UserName </span><br/>
                 <span> عضویت : @Model.RegisteDate </span>
             </div>
         </div>
@@ -25,7 +25,7 @@
             <div class="inner">
                 <ul>
                     <li><a href="/UserPanel"> مشاهده حساب کابری </a></li>
-                    <li><a href=""> ویرایش حساب کابری </a></li>
+                    <li><a href="/UserPanel/EditProfile"> ویرایش حساب کابری </a></li>
                     <li><a href=""> تغییر رمز عبور </a></li>
                     <li><a href=""> تنظیمات حساب کاربری </a></li>
                     <li><a href="/Logout"> خروج از حساب کاربری </a></li>

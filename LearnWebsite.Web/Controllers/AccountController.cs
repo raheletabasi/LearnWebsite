@@ -34,42 +34,41 @@ namespace LearnWebsite.Web.Controllers
         [HttpPost]
         [Route("Register")]
         public IActionResult Register(RegisterViewModel registerViewModel)
+        {
+            if(!ModelState.IsValid)
+                return View(registerViewModel);
+
+            if (_userService.IsExistEmail(FixedText.FixEmail(registerViewModel.Email)))
             {
-                if(!ModelState.IsValid)
-                    return View(registerViewModel);
+                ModelState.AddModelError("Email", "ایمیل وارد شده قبلا در سامانه ثبت شده است");
+                return View(registerViewModel);
+            }
 
-                if (_userService.IsExistEmail(FixedText.FixEmail(registerViewModel.Email)))
-                {
-                    ModelState.AddModelError("Email", "ایمیل وارد شده قبلا در سامانه ثبت شده است");
-                    return View(registerViewModel);
-                }
+            if (_userService.IsExistUserName(registerViewModel.UserName))
+            {
+                ModelState.AddModelError("UserName", "نام کاربری وارد شده قبلا در سامانه ثبت شده است");
+                return View(registerViewModel);
+            }
 
-                if (_userService.IsExistUserName(registerViewModel.UserName))
-                {
-                    ModelState.AddModelError("UserName", "نام کاربری وارد شده قبلا در سامانه ثبت شده است");
-                    return View(registerViewModel);
-                }
-
-                var user = new User()
-                {
-                    ActivateCode = Generator.CodeGenerator(),
-                    Email = FixedText.FixEmail(registerViewModel.Email),
-                    IsActive = false,
-                    Password = PasswordHelper.EncodePasswordMd5(registerViewModel.Password),
-                    RegisterDate = System.DateTime.Now,
-                    UserAvatar = "Default.jpg",
-                    UserName = registerViewModel.UserName
-                };
-
-                _userService.AddUser(user);
+            var user = new User()
+            {
+                ActivateCode = Generator.CodeGenerator(),
+                Email = FixedText.FixEmail(registerViewModel.Email),
+                IsActive = false,
+                Password = PasswordHelper.EncodePasswordMd5(registerViewModel.Password),
+                RegisterDate = System.DateTime.Now,
+                UserAvatar = "Default.jpg",
+                UserName = registerViewModel.UserName
+            };
 
             #region Send Activation Code Email
             string body = _viewRenderService.RenderToStringAsync("_ActivationCodeEmail", user);
-            SendEmail.Send(user.Email,"فعال سازی حساب کاربری",body);
+            //SendEmail.Send(user.Email,"فعال سازی حساب کاربری",body);
             #endregion
 
+            _userService.AddUser(user);
             return View("SuccessRegister",user);
-            }
+        }
         #endregion
 
         #region login

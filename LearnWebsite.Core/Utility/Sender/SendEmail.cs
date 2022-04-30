@@ -23,8 +23,9 @@ namespace LearnWebsite.Core.Utility.Sender
             // mail.Attachments.Add(attachment);
 
             SmtpServer.Port = 587;
-            SmtpServer.Credentials = new System.Net.NetworkCredential("raheleh.tabasi@gmail.com", "****");
-            SmtpServer.EnableSsl = true;
+            SmtpServer.UseDefaultCredentials = false;
+            SmtpServer.Credentials = new System.Net.NetworkCredential("raheleh.tabasi@gmail.com", "www.ARINA.persianblog.ir!#*&1370");
+            SmtpServer.EnableSsl = true;          
 
             SmtpServer.Send(mail);
 

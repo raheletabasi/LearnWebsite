@@ -16,11 +16,15 @@ namespace LearnWebsite.Core.Services.Interfaces
         int AddUser(User user);
         User LoginUser(LoginViewModel user);
         void UpdateUser(User user);
+        bool CheckDuplicateUser(int userId, string userName);
+        bool CheckDuplicateEmail(int userId, string email);
         bool AccountActivation(string activeCode);
         User GetUserByEmail(string email);
         User GetUserByActiveCode(string activeCode);
         User GetUserByUserName(string userName);
         UserInformationViewModel GetUserInformation(string userName);
-        SideBarViewModel GetSideBar(string User);       
+        SideBarViewModel GetSideBar(string User);      
+        EditProfileViewModel GetInfoForEdit(string userName);
+        void UpdateProfilePanel(string oldUserName, EditProfileViewModel profile);
     }
 }

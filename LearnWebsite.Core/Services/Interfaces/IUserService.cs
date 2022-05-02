@@ -26,5 +26,7 @@ namespace LearnWebsite.Core.Services.Interfaces
         SideBarViewModel GetSideBar(string User);      
         EditProfileViewModel GetInfoForEdit(string userName);
         void UpdateProfilePanel(string oldUserName, EditProfileViewModel profile);
+        bool GetPassword(string userName, string oldPassword);
+        void UpdatePassword(string userName, string newPassword);
     }
 }

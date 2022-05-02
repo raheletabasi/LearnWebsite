@@ -140,12 +140,12 @@ namespace LearnWebsite.Core.Services
                 string imagePath = string.Empty;
                 if (profile.AvatarName != "Default.jpg")
                 {
-                    imagePath = Path.Combine(Directory.GetCurrentDirectory(), "/wwwroot/UserAvatar/" + profile.AvatarName);
+                    imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/UserAvatar/" + profile.AvatarName);
                     if (File.Exists(imagePath))
                         File.Delete(imagePath);
                 }
                 profile.AvatarName = Generator.CodeGenerator() + Path.GetExtension(profile.AvatarUploaded.FileName);
-                imagePath = Path.Combine(Directory.GetCurrentDirectory(), "/wwwroot/UserAvatar/" + profile.AvatarName) ;
+                imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/UserAvatar/" + profile.AvatarName) ;
                 using (var stream = new FileStream(imagePath, FileMode.Create))
                 {
                     profile.AvatarUploaded.CopyTo(stream);

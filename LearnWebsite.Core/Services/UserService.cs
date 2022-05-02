@@ -71,6 +71,12 @@ namespace LearnWebsite.Core.Services
                 }).Single();
         }
 
+        public bool GetPassword(string userName, string oldPassword)
+        {
+            string oldPassMD5 = Security.PasswordHelper.EncodePasswordMd5(oldPassword);
+            return _context.Users.Any(usr => usr.UserName == userName && usr.Password == oldPassMD5 );
+        }
+
         public SideBarViewModel GetSideBar(string User)
         {
             return _context.Users.Where(usr => usr.UserName == User)
@@ -131,6 +137,13 @@ namespace LearnWebsite.Core.Services
             string email = FixedText.FixEmail(user.Email);
 
             return _context.Users.SingleOrDefault(usr => usr.Email == email && usr.Password == hashPassword);
+        }
+
+        public void UpdatePassword(string userName, string newPassword)
+        {
+            var currentUser = GetUserByUserName(userName);
+            currentUser.Password = PasswordHelper.EncodePasswordMd5(currentUser.Password);
+            UpdateUser(currentUser);
         }
 
         public void UpdateProfilePanel(string oldUserName, EditProfileViewModel profile)

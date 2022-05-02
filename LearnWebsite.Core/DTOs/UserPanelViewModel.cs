@@ -40,7 +40,7 @@ namespace LearnWebsite.Core.DTOs
             public string AvatarName { get; set; }
         }
 
-        public class ChangePassword
+        public class ChangePasswordViewModel
         {
             [Display(Name = "کلمه عبور فعلی")]
             [MinLength(5, ErrorMessage = "{0} نمی تواند کمتر از {1} کاراکتر باشد")]

@@ -56,6 +56,28 @@ namespace LearnWebsite.Web.Areas.UserPanel.Controllers
             ViewBag.IsSuccess = true;
             return Redirect("/Login");
         }
+
+        [Route("/UserPanel/ChangePassword")]
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Route("/UserPanel/ChangePassword")]
+        public IActionResult ChangePassword(UserPanelViewModel.ChangePasswordViewModel changePasswordViewModel)
+        {
+            string currentUser = User.Identity.Name;
+
+            if(!ModelState.IsValid)
+                return View(changePasswordViewModel);
+
+            if (!_userService.GetPassword(currentUser, changePasswordViewModel.OldPassword))
+                ModelState.AddModelError("OldPassword", "کلمه عبور فعلی اشتباه می باشد");
+
+            ViewBag.IsSuccess = true;
+            return View();
+        }
         #endregion
     }
 }

@@ -14,16 +14,17 @@
 </div>
 
 <main class="client-page">
+
     <div class="container-content">
 
         @if (ViewBag.IsSuccess != null)
-        { 
-            <div class="help-block">
+        {
+            <div class="alert alert-success help-block">
                 <p> ورود با موفقیت انجام شد </p>
             </div>
 
             <script>
-                var delay = 5000;
+                var delay = 3000;
                 setTimeout(function () { window.location = "https://localhost:44344/" }, delay);
             </script>
         }

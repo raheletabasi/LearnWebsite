@@ -119,6 +119,7 @@ namespace LearnWebsite.Web.Controllers
         }
         #endregion
 
+        [Route("Logout")]
         public IActionResult Logout()
         {
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

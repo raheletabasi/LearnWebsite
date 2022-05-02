@@ -39,5 +39,27 @@ namespace LearnWebsite.Core.DTOs
 
             public string AvatarName { get; set; }
         }
+
+        public class ChangePassword
+        {
+            [Display(Name = "کلمه عبور فعلی")]
+            [MinLength(5, ErrorMessage = "{0} نمی تواند کمتر از {1} کاراکتر باشد")]
+            [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
+            [Required(ErrorMessage = "تکمیل نمودن فیلد {0} الزامی می باشد")]
+            public string OldPassword { get; set; }
+
+            [Display(Name = "کلمه عبور")]
+            [MinLength(5, ErrorMessage = "{0} نمی تواند کمتر از {1} کاراکتر باشد")]
+            [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
+            [Required(ErrorMessage = "تکمیل نمودن فیلد {0} الزامی می باشد")]
+            public string Password { get; set; }
+
+            [Display(Name = "تکرار کلمه عبور")]
+            [MinLength(5, ErrorMessage = "{0} نمی تواند کمتر از {1} کاراکتر باشد")]
+            [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
+            [Required(ErrorMessage = "تکمیل نمودن فیلد {0} الزامی می باشد")]
+            [Compare("Password", ErrorMessage = "تکرار کلمه عبور با کلمه عبور یکسان نمی باشد")]
+            public string RePassword { get; set; }
+        }
     }
 }

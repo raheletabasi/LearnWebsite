@@ -59,6 +59,39 @@ namespace LearnWebsite.Core.Services
             return _context.Users.Any(usr => usr.UserName == userName && usr.UserId != userId);
         }
 
+        public int GetCashWalletBalanceUserId(string userName)
+        {
+            int userId = GetUserIdByUserName(userName);
+
+            // اعتبار
+            var credit = _context.CashWallets
+                        .Where(w => w.UserId == userId
+                                 && w.CashTypeId == 1
+                                 && w.IsPay == true)
+                        .Select(w => w.Cash);
+
+            // بدهکار
+            var debit = _context.CashWallets
+                        .Where(w => w.UserId == userId
+                                 && w.CashTypeId == 2)
+                        .Select(w => w.Cash);
+
+            return ((int)(credit.Sum() - debit.Sum()));
+        }
+
+        public IEnumerable<HistoryCashWalletViewModel> GetHistoryCashWallet(string userName)
+        {
+            int userId = GetUserIdByUserName(userName);
+            return _context.CashWallets.Where(cw => cw.UserId == userId)
+                                       .Select(cw => 
+                                       new HistoryCashWalletViewModel()
+                                       { 
+                                            Cash = cw.Cash,
+                                            CashType = cw.CashTypeId,
+                                            RegisterDateTime = cw.CreateDate
+                                       });
+        }
+
         public EditProfileViewModel GetInfoForEdit(string userName)
         {
             return _context.Users.Where(usr => usr.UserName == userName)
@@ -106,6 +139,11 @@ namespace LearnWebsite.Core.Services
             return _context.Users.SingleOrDefault(usr => usr.UserName == userName);
         }
 
+        public int GetUserIdByUserName(string userName)
+        {
+            return _context.Users.Single(u => u.UserName == userName).UserId;
+        }
+
         public UserInformationViewModel GetUserInformation(string userName)
         {
             User userInformation = GetUserByUserName(userName);
@@ -115,7 +153,7 @@ namespace LearnWebsite.Core.Services
                 UserName = userInformation.UserName,
                 Email = userInformation.Email,
                 RegisterDate = userInformation.RegisterDate.ToShamsi(),
-                CashWallet = 0
+                CashWallet = GetCashWalletBalanceUserId(userName)
             };
 
             return userInformationViewModel;

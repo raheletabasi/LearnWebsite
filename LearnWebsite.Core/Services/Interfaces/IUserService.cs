@@ -23,10 +23,20 @@ namespace LearnWebsite.Core.Services.Interfaces
         User GetUserByActiveCode(string activeCode);
         User GetUserByUserName(string userName);
         UserInformationViewModel GetUserInformation(string userName);
+        int GetUserIdByUserName(string userName);
+
+        #region Profile
         SideBarViewModel GetSideBar(string User);      
         EditProfileViewModel GetInfoForEdit(string userName);
         void UpdateProfilePanel(string oldUserName, EditProfileViewModel profile);
         bool GetPassword(string userName, string oldPassword);
         void UpdatePassword(string userName, string newPassword);
+        #endregion
+
+        #region CashWallet
+        int GetCashWalletBalanceUserId(string userName);
+        IEnumerable<HistoryCashWalletViewModel> GetHistoryCashWallet(string userName);
+        #endregion
+
     }
 }

@@ -50,5 +50,6 @@ namespace LearnWebsite.Data.Entities.User
 
 
         public virtual IEnumerable<UserRole> UserRoles { get; set; }
+        public virtual IEnumerable<CashWallet.CashWallet> CashWallets { get; set; }
     }
 }

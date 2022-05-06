@@ -4,6 +4,7 @@ using LearnWebsite.Core.Services.Interfaces;
 using LearnWebsite.Core.Utility.Convertor;
 using LearnWebsite.Core.Utility.Generator;
 using LearnWebsite.Data.Contexts;
+using LearnWebsite.Data.Entities.CashWallet;
 using LearnWebsite.Data.Entities.User;
 using System;
 using System.Collections.Generic;
@@ -47,6 +48,20 @@ namespace LearnWebsite.Core.Services
             _context.SaveChanges();
 
             return user.UserId;
+        }
+
+        public void ChargeCashWallet(string userName, decimal cash)
+        {
+            var cashWallet = new CashWallet()
+            {
+                CashTypeId = 1,
+                CreateDate = DateTime.Now,
+                UserId = GetUserIdByUserName(userName),
+                IsPay = false,
+                Cash = cash
+            };
+
+            SaveCashWallet(cashWallet);
         }
 
         public bool CheckDuplicateEmail(int userId, string email)
@@ -175,6 +190,12 @@ namespace LearnWebsite.Core.Services
             string email = FixedText.FixEmail(user.Email);
 
             return _context.Users.SingleOrDefault(usr => usr.Email == email && usr.Password == hashPassword);
+        }
+
+        public void SaveCashWallet(CashWallet cashWallet)
+        {
+            _context.CashWallets.Add(cashWallet);
+            _context.SaveChanges();
         }
 
         public void UpdatePassword(string userName, string newPassword)

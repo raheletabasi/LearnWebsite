@@ -29,7 +29,7 @@
                                     <li> <i class="zmdi zmdi-assignment-account"></i> نام کاربری :  @Model.UserName </li>
                                     <li> <i class="zmdi zmdi-email"></i> ایمیل : @Model.Email </li>
                                     <li> <i class="zmdi zmdi-calendar-check"></i> تاریخ عضویت : @Model.RegisterDate </li>
-                                    <li> <i class="zmdi zmdi-money"></i> موجودی حساب : @Model.CashWallet تومان </li>
+                                    <li> <i class="zmdi zmdi-money"></i> موجودی حساب : @Model.CashWallet.ToString("#,0") تومان </li>
                                 </ul>
                             </div>
                         </div>

@@ -1,4 +1,5 @@
 ﻿using LearnWebsite.Core.DTOs;
+using LearnWebsite.Data.Entities.CashWallet;
 using LearnWebsite.Data.Entities.User;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,8 @@ namespace LearnWebsite.Core.Services.Interfaces
         #region CashWallet
         int GetCashWalletBalanceUserId(string userName);
         IEnumerable<HistoryCashWalletViewModel> GetHistoryCashWallet(string userName);
+        void ChargeCashWallet(string userName, decimal cash);
+        void SaveCashWallet(CashWallet cashWallet);
         #endregion
 
     }

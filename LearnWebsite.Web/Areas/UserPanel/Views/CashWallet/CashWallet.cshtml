@@ -1,0 +1,72 @@
+﻿@model LearnWebsite.Core.DTOs.ChargeCashWalletViewModel
+
+@{
+    ViewData["Title"] = "کیف پول";
+}
+
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">تاپ لرن</a></li>
+            <li class="breadcrumb-item active" aria-current="page"> کیف پول </li>
+        </ul>
+    </nav>
+</div>
+
+<main>
+    <div class="container">
+        <div class="user-account">
+            <div class="row">
+                <partial name="_SideBar" />
+                <div class="col-md-9 col-sm-8 col-xs-12">
+                    <section class="user-account-content">
+                        <header><h1> کیف پول </h1></header>
+                        <div class="inner form-layer">
+                            <form asp-action="CashWallet" method="post">
+                                <div class="row">
+                                    <div class="col-md-7 col-sm-8 col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="zmdi zmdi-balance-wallet"></i></span>
+                                            <input type="text" class="form-control" asp-for="Amount" placeholder="مبلغ" aria-describedby="amount">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7 col-sm-8 col-xs-12">
+                                        <button class="btn btn-success"> شارژ کیف پول </button>
+                                    </div>
+                                </div>
+                                <hr />
+                                @{
+                                    List<LearnWebsite.Core.DTOs.HistoryCashWalletViewModel> historyCashWalletViewModels = ViewData["ListOfCharge"] as List<LearnWebsite.Core.DTOs.HistoryCashWalletViewModel>;
+                                }
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <th>مبلغ</th>
+                                        <th>نوع</th>
+                                        <th>تازیخ و زمان</th>
+                                        <th>شرح</th>
+                                    </tr>
+
+                                    @if (historyCashWalletViewModels != null)
+                                    {
+                                        @foreach (var item in historyCashWalletViewModels)
+                                        {
+                                            <tr>
+                                                <td> @item.Cash </td>
+                                                <td> @item.CashType </td>
+                                                <td> @item.RegisterDateTime </td>
+                                                <td> @item.Description </td>
+                                            </tr>
+                                        }
+                                    }
+
+                                </table>
+                            </form>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+

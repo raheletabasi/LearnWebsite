@@ -50,7 +50,7 @@ namespace LearnWebsite.Core.Services
             return user.UserId;
         }
 
-        public void ChargeCashWallet(string userName, decimal cash)
+        public int ChargeCashWallet(string userName, decimal cash)
         {
             var cashWallet = new CashWallet()
             {
@@ -61,7 +61,7 @@ namespace LearnWebsite.Core.Services
                 Cash = cash
             };
 
-            SaveCashWallet(cashWallet);
+            return SaveCashWallet(cashWallet);
         }
 
         public bool CheckDuplicateEmail(int userId, string email)
@@ -174,6 +174,11 @@ namespace LearnWebsite.Core.Services
             return userInformationViewModel;
         }
 
+        public CashWallet GetWalletByWalletId(int walletId)
+        {
+            return _context.CashWallets.Find(walletId);
+        }
+
         public bool IsExistEmail(string email)
         {
             return _context.Users.Any(usr => usr.Email == email);
@@ -192,10 +197,12 @@ namespace LearnWebsite.Core.Services
             return _context.Users.SingleOrDefault(usr => usr.Email == email && usr.Password == hashPassword);
         }
 
-        public void SaveCashWallet(CashWallet cashWallet)
+        public int SaveCashWallet(CashWallet cashWallet)
         {
             _context.CashWallets.Add(cashWallet);
             _context.SaveChanges();
+
+            return cashWallet.CashWalletId;
         }
 
         public void UpdatePassword(string userName, string newPassword)
@@ -236,6 +243,11 @@ namespace LearnWebsite.Core.Services
         {
             _context.Users.Update(user);
             _context.SaveChanges();
+        }
+
+        public void UpdateWallet(CashWallet wallet)
+        {
+            _context.CashWallets.Update(wallet);
         }
     }
 }

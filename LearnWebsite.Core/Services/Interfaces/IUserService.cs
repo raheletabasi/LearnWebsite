@@ -37,8 +37,10 @@ namespace LearnWebsite.Core.Services.Interfaces
         #region CashWallet
         int GetCashWalletBalanceUserId(string userName);
         IEnumerable<HistoryCashWalletViewModel> GetHistoryCashWallet(string userName);
-        void ChargeCashWallet(string userName, decimal cash);
-        void SaveCashWallet(CashWallet cashWallet);
+        int ChargeCashWallet(string userName, decimal cash);
+        int SaveCashWallet(CashWallet cashWallet);
+        CashWallet GetWalletByWalletId(int walletId);
+        void UpdateWallet(CashWallet wallet);
         #endregion
 
     }

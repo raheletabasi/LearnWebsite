@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnWebsite.Web", "LearnWebsite.Web\LearnWebsite.Web.csproj", "{E135B591-31F8-4EC3-9E49-186904B04034}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnWebsite.Web", "LearnWebsite.Web\LearnWebsite.Web.csproj", "{E135B591-31F8-4EC3-9E49-186904B04034}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnWebsite.Core", "LearnWebsite.Core\LearnWebsite.Core.csproj", "{65864276-D021-4F55-BFDB-A453E2C21FB2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnWebsite.Core", "LearnWebsite.Core\LearnWebsite.Core.csproj", "{65864276-D021-4F55-BFDB-A453E2C21FB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnWebsite.Data", "LearnWebsite.Data\LearnWebsite.Data.csproj", "{205EFF4E-22D2-4F3C-AE47-46EF68BE949A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnWebsite.Data", "LearnWebsite.Data\LearnWebsite.Data.csproj", "{205EFF4E-22D2-4F3C-AE47-46EF68BE949A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

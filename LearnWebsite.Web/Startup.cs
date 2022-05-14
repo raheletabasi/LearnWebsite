@@ -30,7 +30,8 @@ namespace LearnWebsite.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddControllersWithViews();
+            services.AddRazorPages();
 
             #region ConnectionString
             services.AddDbContext<LearnWebsiteContext>(option =>
@@ -70,8 +71,10 @@ namespace LearnWebsite.Web
             app.UseAuthentication();           
             app.UseRouting();
             app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages();
                 endpoints.MapControllerRoute(
                         name : "default",
                         pattern: "{controller=Home}/{action=Index}/{id?}");

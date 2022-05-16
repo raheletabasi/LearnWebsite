@@ -137,6 +137,30 @@ namespace LearnWebsite.Core.Services
                 }).Single();               
         }
 
+        public ManagementUserViewModel GetUser(int page = 1, string filterEmail = "", string filterUserName = "")
+        {
+            IQueryable<User> result = _context.Users;
+
+            if (!string.IsNullOrEmpty(filterEmail))
+                result = result.Where(usr => usr.Email == filterEmail);
+
+            if (!string.IsNullOrEmpty(filterUserName))
+                result = result.Where(usr => usr.UserName == filterUserName);
+
+            // pageing
+            int take = 20;
+            int skip = (page - 1) * take;
+
+            ManagementUserViewModel listOfUser = new ManagementUserViewModel()
+            {
+                Users = result.OrderBy(usr => usr.RegisterDate).Skip(skip).Take(take).ToList(),
+                CurrentPage = page,
+                PageCount = result.Count() / take
+            };
+
+            return listOfUser;
+        }
+
         public User GetUserByActiveCode(string activeCode)
         {
             return _context.Users.SingleOrDefault(usr => usr.ActivateCode == activeCode);

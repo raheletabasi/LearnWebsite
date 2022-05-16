@@ -43,5 +43,9 @@ namespace LearnWebsite.Core.Services.Interfaces
         void UpdateWallet(CashWallet wallet);
         #endregion
 
+        #region ManagementUser
+        ManagementUserViewModel GetUser(int page = 1, string filterEmail = "", string filterUserName = "");
+        #endregion
+
     }
 }

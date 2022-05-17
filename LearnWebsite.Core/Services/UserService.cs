@@ -142,10 +142,10 @@ namespace LearnWebsite.Core.Services
             IQueryable<User> result = _context.Users;
 
             if (!string.IsNullOrEmpty(filterEmail))
-                result = result.Where(usr => usr.Email == filterEmail);
+                result = result.Where(usr => usr.Email.Contains(filterEmail));
 
             if (!string.IsNullOrEmpty(filterUserName))
-                result = result.Where(usr => usr.UserName == filterUserName);
+                result = result.Where(usr => usr.UserName.Contains(filterUserName));
 
             // pageing
             int take = 20;

@@ -148,7 +148,7 @@ namespace LearnWebsite.Core.Services
                 result = result.Where(usr => usr.UserName.Contains(filterUserName));
 
             // pageing
-            int take = 20;
+            int take = 1;
             int skip = (page - 1) * take;
 
             ManagementUserViewModel listOfUser = new ManagementUserViewModel()

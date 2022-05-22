@@ -50,6 +50,34 @@ namespace LearnWebsite.Core.Services
             return user.UserId;
         }
 
+        public int AddUserInAdmin(CreateUserViewModel user)
+        {
+            User newUser = new User()
+            {
+                IsActive = true,
+                ActivateCode = Generator.CodeGenerator(),
+                Email = user.Email,
+                Password = PasswordHelper.EncodePasswordMd5(user.Password),
+                RegisterDate = DateTime.Now,
+                UserName = user.UserName,
+            };
+
+            if (user.Avatar != null)
+            {
+                string imagePath = string.Empty;
+
+                newUser.UserAvatar = Generator.CodeGenerator() + Path.GetExtension(user.Avatar.FileName);
+                imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/UserAvatar/" + newUser.UserAvatar);
+                using (var stream = new FileStream(imagePath, FileMode.Create))
+                {
+                    user.Avatar.CopyTo(stream);
+                }
+            }
+            _context.Users.Add(newUser);    
+
+            return newUser.UserId;
+        }
+
         public int ChargeCashWallet(string userName, decimal cash)
         {
             var cashWallet = new CashWallet()
@@ -142,13 +170,13 @@ namespace LearnWebsite.Core.Services
             IQueryable<User> result = _context.Users;
 
             if (!string.IsNullOrEmpty(filterEmail))
-                result = result.Where(usr => usr.Email == filterEmail);
+                result = result.Where(usr => usr.Email.Contains(filterEmail));
 
             if (!string.IsNullOrEmpty(filterUserName))
-                result = result.Where(usr => usr.UserName == filterUserName);
+                result = result.Where(usr => usr.UserName.Contains(filterUserName));
 
             // pageing
-            int take = 20;
+            int take = 1;
             int skip = (page - 1) * take;
 
             ManagementUserViewModel listOfUser = new ManagementUserViewModel()

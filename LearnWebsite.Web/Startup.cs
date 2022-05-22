@@ -42,6 +42,7 @@ namespace LearnWebsite.Web
 
             #region IoC
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IPermissionService, PermissionService>();
             services.AddTransient<IViewRenderService, RenderViewToString>();
             #endregion
 

@@ -50,6 +50,34 @@ namespace LearnWebsite.Core.Services
             return user.UserId;
         }
 
+        public int AddUserInAdmin(CreateUserViewModel user)
+        {
+            User newUser = new User()
+            {
+                IsActive = true,
+                ActivateCode = Generator.CodeGenerator(),
+                Email = user.Email,
+                Password = PasswordHelper.EncodePasswordMd5(user.Password),
+                RegisterDate = DateTime.Now,
+                UserName = user.UserName,
+            };
+
+            if (user.Avatar != null)
+            {
+                string imagePath = string.Empty;
+
+                newUser.UserAvatar = Generator.CodeGenerator() + Path.GetExtension(user.Avatar.FileName);
+                imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/UserAvatar/" + newUser.UserAvatar);
+                using (var stream = new FileStream(imagePath, FileMode.Create))
+                {
+                    user.Avatar.CopyTo(stream);
+                }
+            }
+            _context.Users.Add(newUser);    
+
+            return newUser.UserId;
+        }
+
         public int ChargeCashWallet(string userName, decimal cash)
         {
             var cashWallet = new CashWallet()

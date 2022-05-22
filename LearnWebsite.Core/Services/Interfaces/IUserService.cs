@@ -45,6 +45,8 @@ namespace LearnWebsite.Core.Services.Interfaces
 
         #region ManagementUser
         ManagementUserViewModel GetUser(int page = 1, string filterEmail = "", string filterUserName = "");
+        int AddUserInAdmin(CreateUserViewModel user);
+
         #endregion
 
     }

@@ -36,11 +36,9 @@ namespace LearnWebsite.Core.DTOs
         [Required(ErrorMessage = "تکمیل نمودن فیلد {0} الزامی می باشد")]
         public string Password { get; set; }
 
-        [Display(Name = "نقش ها")]
-        [Required(ErrorMessage = "انتخاب حداقل یک نقش برای کاربر الزامی می باشد")]
-        public List<int> Roles { get; set; }
-
         [Display(Name = "آواتار")]
         public IFormFile Avatar { get; set; }
+
+        public List<int> SelectedRoles { get; set; }
     }
 }

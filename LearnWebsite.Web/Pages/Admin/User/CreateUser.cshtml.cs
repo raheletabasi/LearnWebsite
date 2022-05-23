@@ -34,7 +34,7 @@ namespace LearnWebsite.Web.Pages.Admin.User
 
             _permissionService.AddRoleToUser(SelectedRoles, userId);
 
-            return Redirect("/admin/user");
+            return Redirect("/Admin/User");
         }
     }
 }

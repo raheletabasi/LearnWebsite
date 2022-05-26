@@ -1,6 +1,6 @@
-﻿@page
-@model LearnWebsite.Web.Pages.Admin.User.CreateUserModel
-@using LearnWebsite.Data.Entities.User;
+﻿@page "{userId}"
+@model LearnWebsite.Web.Pages.Admin.User.EditUserModel
+@using LearnWebsite.Data.Entities.User
 @{
     List<Role> Roles = ViewData["Roles"] as List<Role>;
 }
@@ -8,7 +8,7 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">افزودن کاربر جدید</h1>
+            <h1 class="page-header">ویرایش اطلاعات کاربر</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -23,16 +23,19 @@
                     <!-- /.panel-heading -->
                     <div class="panel-body">
                         <div class="form-group">
-                            <label>نام کاربری</label>
-                            <input type="text" asp-for="CreateUserViewModel.UserName" class="form-control">
-                        </div>
-                        <div class="form-group">
                             <label>ایمیل</label>
-                            <input type="email" asp-for="CreateUserViewModel.Email" class="form-control">
+                            <input type="email" asp-for="editUserViewModel.Email" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>کلمه عبور</label>
-                            <input type="text" asp-for="CreateUserViewModel.Password" class="form-control">
+                            <input type="text" asp-for="editUserViewModel.Password" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>وضعیت</label><br />
+                            <label>فعال</label>
+                            <input type="radio" id="active" name="status" value="1" @((Model.editUserViewModel.IsActive)? "checked" : "")>
+                            <label>غیرفعال</label>
+                            <input type="radio" id="deActive" name="status" value="0" @((Model.editUserViewModel.IsActive)? "checked" : "")>
                         </div>
                         <div class="form-group">
                             <label>انتخاب نقش کاربر</label>
@@ -41,14 +44,14 @@
                             {
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="SelectedRoles" value="@item.RoleId">@item.RoleTitle
+                                        <input type="checkbox" name="SelectedRoles" value="@item.RoleId" @((Model.editUserViewModel.Roles.Any(rol => rol == item.RoleId)) ? "checked" : "")>@item.RoleTitle
                                     </label>
                                 </div>
                             }
 
 
                         </div>
-                        <input type="submit" value="ذخیره اطلاعات" class="btn btn-success" />
+                        <input type="submit" value="ویرایش اطلاعات" class="btn btn-success" />
                     </div>
                     <!-- /.panel-body -->
                 </div>
@@ -60,10 +63,10 @@
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
-                        <img id="imgAvatar" class="thumbnail" src="/UserAvatar/Default.jpg" />
+                        <img id="imgAvatar" class="thumbnail" src="/UserAvatar/@Model.editUserViewModel.UserAvatar" />
                         <div class="form-group">
                             <label>انتخاب تصویر</label>
-                            <input type="file" asp-for="CreateUserViewModel.Avatar">
+                            <input type="file" asp-for="editUserViewModel.Avatar">
                         </div>
                     </div>
                     <!-- /.panel-body -->

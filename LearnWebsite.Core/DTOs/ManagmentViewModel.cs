@@ -36,11 +36,38 @@ namespace LearnWebsite.Core.DTOs
         [Required(ErrorMessage = "تکمیل نمودن فیلد {0} الزامی می باشد")]
         public string Password { get; set; }
 
-        [Display(Name = "نقش ها")]
-        [Required(ErrorMessage = "انتخاب حداقل یک نقش برای کاربر الزامی می باشد")]
-        public List<int> Roles { get; set; }
+        [Display(Name = "آواتار")]
+        public IFormFile Avatar { get; set; }
+
+        public List<int> SelectedRoles { get; set; }
+    }
+
+    public class EditUserViewModel
+    {
+        public int UserId { get; set; }
+
+        [Display(Name = "ایمیل")]
+        [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
+        [Required(ErrorMessage = "تکمیل نمودن فیلد {0} الزامی می باشد")]
+        [EmailAddress(ErrorMessage = "ایمیل وارد شده معتبر نمی باشد")]
+        public string Email { get; set; }
+
+        [Display(Name = "کلمه عبور")]
+        [MinLength(5, ErrorMessage = "{0} نمی تواند کمتر از {1} کاراکتر باشد")]
+        [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
+        [Required(ErrorMessage = "تکمیل نمودن فیلد {0} الزامی می باشد")]
+        public string Password { get; set; }
+
+        [Display(Name = "وضعیت فعال بودن")]
+        public bool IsActive { get; set; }
 
         [Display(Name = "آواتار")]
         public IFormFile Avatar { get; set; }
+
+        [Display(Name = "آواتار")]
+        [MaxLength(200, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
+        public string UserAvatar { get; set; }
+
+        public List<int> Roles { get; set; }
     }
 }

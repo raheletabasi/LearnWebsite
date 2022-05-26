@@ -38,7 +38,7 @@
                         </form>
                     </div>
                     <div class="row">
-                        <div class="col-md-2"><button class="btn btn-success">افزودن کاربر جدید</button></div>
+                        <div class="col-md-2"><a href="/Admin/User/CreateUser" class="btn btn-success">افزودن کاربر جدید</a></div>
                         <div class="col-md-12"></div>
                     </div>
                     <div class="table-responsive">
@@ -70,8 +70,8 @@
                                         </td>
                                         <td align="center">@LearnWebsite.Core.Utility.Convertor.ConvertDate.ToShamsi(item.RegisterDate)</td>
                                         <td>
-                                            <button class="btn btn-warning">ویرایش</button>
-                                            <button class="btn btn-danger">حذف</button>
+                                            <a href="/AdminContext/User/EditUser" class="btn btn-warning">ویرایش</a>
+                                            <a class="btn btn-danger">حذف</a>
                                         </td>
                                     </tr>
                                 }

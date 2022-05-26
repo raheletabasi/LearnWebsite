@@ -25,6 +25,7 @@ namespace LearnWebsite.Core.Services.Interfaces
         User GetUserByUserName(string userName);
         UserInformationViewModel GetUserInformation(string userName);
         int GetUserIdByUserName(string userName);
+        User GetUserByUserId(int userId);
 
         #region Profile
         SideBarViewModel GetSideBar(string User);      
@@ -46,6 +47,9 @@ namespace LearnWebsite.Core.Services.Interfaces
         #region ManagementUser
         ManagementUserViewModel GetUser(int page = 1, string filterEmail = "", string filterUserName = "");
         int AddUserInAdmin(CreateUserViewModel user);
+        EditUserViewModel GetUserInfoInAdmin(int userId);
+        void EditUserInAdmin(EditUserViewModel editProfileViewModel);
+        
 
         #endregion
 

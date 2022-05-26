@@ -6,6 +6,7 @@ using LearnWebsite.Core.Utility.Generator;
 using LearnWebsite.Data.Contexts;
 using LearnWebsite.Data.Entities.CashWallet;
 using LearnWebsite.Data.Entities.User;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -100,6 +101,43 @@ namespace LearnWebsite.Core.Services
         public bool CheckDuplicateUser(int userId, string userName)
         {
             return _context.Users.Any(usr => usr.UserName == userName && usr.UserId != userId);
+        }
+
+        public void EditUserInAdmin(EditUserViewModel editProfileViewModel)
+        {
+            User currentUser = GetUserByUserId(editProfileViewModel.UserId);
+
+            currentUser.Email = editProfileViewModel.Email;
+
+            if (!String.IsNullOrEmpty(editProfileViewModel.Password))
+                currentUser.Password = PasswordHelper.EncodePasswordMd5(editProfileViewModel.Password);
+
+            currentUser.IsActive = editProfileViewModel.IsActive;
+
+            if (editProfileViewModel.Avatar != null)
+            {
+                //Delete old Image
+                if (editProfileViewModel.UserAvatar != "Defult.jpg")
+                {
+                    string deletePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/UserAvatar", editProfileViewModel.UserAvatar);
+                    if (File.Exists(deletePath))
+                    {
+                        File.Delete(deletePath);
+                    }
+                }
+
+                //Save New Image
+                currentUser.UserAvatar = Generator.CodeGenerator() + Path.GetExtension(editProfileViewModel.Avatar.FileName);
+                string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/UserAvatar", currentUser.UserAvatar);
+                using (var stream = new FileStream(imagePath, FileMode.Create))
+                {
+                    editProfileViewModel.Avatar.CopyTo(stream);
+                }
+            }
+
+            _context.Users.Update(currentUser);
+            _context.SaveChanges();
+
         }
 
         public int GetCashWalletBalanceUserId(string userName)
@@ -201,6 +239,11 @@ namespace LearnWebsite.Core.Services
             return _context.Users.SingleOrDefault(usr => usr.Email == userEmail);
         }
 
+        public User GetUserByUserId(int userId)
+        {
+            return _context.Users.Find(userId);
+        }
+
         public User GetUserByUserName(string userName)
         {
             return _context.Users.SingleOrDefault(usr => usr.UserName == userName);
@@ -209,6 +252,23 @@ namespace LearnWebsite.Core.Services
         public int GetUserIdByUserName(string userName)
         {
             return _context.Users.Single(u => u.UserName == userName).UserId;
+        }
+
+        public EditUserViewModel GetUserInfoInAdmin(int userId)
+        {
+            User UserInfo = GetUserByUserId(userId);
+
+            EditUserViewModel editUserViewModel = new EditUserViewModel()
+            { 
+                UserId = userId,
+                Email = UserInfo.Email,
+                IsActive = UserInfo.IsActive,
+                UserAvatar = UserInfo.UserAvatar,
+                Roles = _context.UserRoles
+                                .Select(rol => rol.RoleId).ToList(),                                                
+            };
+
+            return editUserViewModel;
         }
 
         public UserInformationViewModel GetUserInformation(string userName)

@@ -48,6 +48,8 @@ namespace LearnWebsite.Data.Entities.User
         [Display(Name = "تاریخ ثبت نام")]
         public DateTime RegisterDate { get; set; }
 
+        public bool IsDelete { get; set; }
+
 
         public virtual IEnumerable<UserRole> UserRoles { get; set; }
         public virtual IEnumerable<CashWallet.CashWallet> CashWallets { get; set; }

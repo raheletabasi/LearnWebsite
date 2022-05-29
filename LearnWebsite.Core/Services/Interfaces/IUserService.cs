@@ -24,6 +24,7 @@ namespace LearnWebsite.Core.Services.Interfaces
         User GetUserByActiveCode(string activeCode);
         User GetUserByUserName(string userName);
         UserInformationViewModel GetUserInformation(string userName);
+        UserInformationViewModel GetUserInformation(int userId);
         int GetUserIdByUserName(string userName);
         User GetUserByUserId(int userId);
 
@@ -49,8 +50,7 @@ namespace LearnWebsite.Core.Services.Interfaces
         int AddUserInAdmin(CreateUserViewModel user);
         EditUserViewModel GetUserInfoInAdmin(int userId);
         void EditUserInAdmin(EditUserViewModel editProfileViewModel);
-        
-
+        void DeleteUserInAdmin(int userId);        
         #endregion
 
     }

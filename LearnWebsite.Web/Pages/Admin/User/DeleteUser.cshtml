@@ -1,0 +1,42 @@
+﻿@page "{userId}"
+@model LearnWebsite.Web.Pages.Admin.User.DeleteUserModel
+@{
+
+}
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">حذف کاربر</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+
+    <div class="row">
+        <form method="post">
+            <div class="col-lg-8">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        اطلاعات کاربر
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+
+                        <div class="account-information">
+                            
+                            <ul>
+                                <li> <i class="zmdi zmdi-assignment-account"></i> نام کاربری :  @Model.UserInformationViewModel.UserName </li>
+                                <li> <i class="zmdi zmdi-email"></i> ایمیل : @Model.UserInformationViewModel.Email </li>
+                                <li> <i class="zmdi zmdi-calendar-check"></i> تاریخ عضویت : @Model.UserInformationViewModel.RegisterDate </li>
+                                <li> <i class="zmdi zmdi-money"></i> موجودی حساب : @Model.UserInformationViewModel.CashWallet.ToString("#,0") تومان </li>
+                            </ul>
+                        </div>
+                        <input type="hidden" name="userId" value="@ViewData["UserId"].ToString()"/>
+                        <input type="submit" value="حذف کاربر" class="btn btn-danger" />
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

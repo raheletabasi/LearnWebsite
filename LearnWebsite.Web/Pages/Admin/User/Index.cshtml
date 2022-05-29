@@ -1,5 +1,6 @@
 ﻿@page
 @model LearnWebsite.Web.Pages.Admin.User.IndexModel
+@using LearnWebsite.Data.Entities.User
 @{
     Layout = "Shared/_adminLayout";
 }
@@ -70,8 +71,8 @@
                                         </td>
                                         <td align="center">@LearnWebsite.Core.Utility.Convertor.ConvertDate.ToShamsi(item.RegisterDate)</td>
                                         <td>
-                                            <a href="/AdminContext/User/EditUser" class="btn btn-warning">ویرایش</a>
-                                            <a class="btn btn-danger">حذف</a>
+                                            <a href="/Admin/User/EditUser/@item.UserId" class="btn btn-warning">ویرایش</a>
+                                            <a href="/Admin/User/DeleteUser/@item.UserId" class="btn btn-danger">حذف</a>
                                         </td>
                                     </tr>
                                 }

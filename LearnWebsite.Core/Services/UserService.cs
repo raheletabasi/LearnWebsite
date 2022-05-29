@@ -103,6 +103,14 @@ namespace LearnWebsite.Core.Services
             return _context.Users.Any(usr => usr.UserName == userName && usr.UserId != userId);
         }
 
+        public void DeleteUserInAdmin(int userId)
+        {
+            User user = _context.Users.Find(userId);
+            user.IsDelete = true;
+
+            UpdateUser(user);
+        }
+
         public void EditUserInAdmin(EditUserViewModel editProfileViewModel)
         {
             User currentUser = GetUserByUserId(editProfileViewModel.UserId);
@@ -281,6 +289,21 @@ namespace LearnWebsite.Core.Services
                 Email = userInformation.Email,
                 RegisterDate = userInformation.RegisterDate.ToShamsi(),
                 CashWallet = GetCashWalletBalanceUserId(userName)
+            };
+
+            return userInformationViewModel;
+        }
+
+        public UserInformationViewModel GetUserInformation(int useId)
+        {
+            User userInformation = GetUserByUserId(useId);
+
+            UserInformationViewModel userInformationViewModel = new UserInformationViewModel()
+            {
+                UserName = userInformation.UserName,
+                Email = userInformation.Email,
+                RegisterDate = userInformation.RegisterDate.ToShamsi(),
+                CashWallet = GetCashWalletBalanceUserId(userInformation.UserName)
             };
 
             return userInformationViewModel;

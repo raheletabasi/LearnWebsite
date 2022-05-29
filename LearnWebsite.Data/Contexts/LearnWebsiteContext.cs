@@ -29,12 +29,11 @@ namespace LearnWebsite.Data.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>().HasQueryFilter(u => !u.IsDelete);
+
             modelBuilder.Entity<UserRole>().HasKey(e => new { e.RoleId, e.UserId });
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<CashType>().HasData(
-                new CashType { CashTypeId = 1, TypeTitle = "واریز" },
-                new CashType { CashTypeId = 2, TypeTitle = "برداشت"});
         }
     }
 }

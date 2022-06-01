@@ -4,14 +4,16 @@ using LearnWebsite.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LearnWebsite.Data.Migrations
 {
     [DbContext(typeof(LearnWebsiteContext))]
-    partial class LearnWebsiteContextModelSnapshot : ModelSnapshot
+    [Migration("20220601055754_addFieldIsDeleteInRole")]
+    partial class addFieldIsDeleteInRole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

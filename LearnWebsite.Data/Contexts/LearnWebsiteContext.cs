@@ -30,6 +30,7 @@ namespace LearnWebsite.Data.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasQueryFilter(u => !u.IsDelete);
+            modelBuilder.Entity<User>().HasQueryFilter(r => !r.IsDelete);
 
             modelBuilder.Entity<UserRole>().HasKey(e => new { e.RoleId, e.UserId });
             base.OnModelCreating(modelBuilder);

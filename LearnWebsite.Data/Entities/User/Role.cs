@@ -22,6 +22,8 @@ namespace LearnWebsite.Data.Entities.User
         [Required(ErrorMessage = "تکمیل نمودن فیلد {0} الزامی می باشد")]
         public string RoleTitle { get; set; }
 
+        public bool IsDelete { get; set; }
+
 
         public virtual IEnumerable<UserRole> UserRoles { get; set; }
     }

@@ -43,6 +43,16 @@ namespace LearnWebsite.Core.Services
             return _context.Roles.ToList();
         }
 
+        public Role GetRoleByRoleId(int roleId)
+        {
+            return _context.Roles.Find(roleId);
+        }
+
+        public void UpdateRole(Role role)
+        {
+            _context.Roles.Update(role);
+        }
+
         public void UpdateUserRole(List<int> roleId, int userId)
         {
             _context.UserRoles.Where(rol => rol.UserId == userId).ToList().ForEach(removeRole => _context.UserRoles.Remove(removeRole));

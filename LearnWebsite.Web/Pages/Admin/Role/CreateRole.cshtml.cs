@@ -8,6 +8,11 @@ namespace LearnWebsite.Web.Pages.Admin.Role
     {
         IPermissionService _permissionService;
 
+        public CreateRoleModel(IPermissionService permissionService)
+        {
+            _permissionService = permissionService;
+        }
+
         [BindProperty]
         public Data.Entities.User.Role Role { get; set; }
         public void OnGet()
@@ -21,7 +26,6 @@ namespace LearnWebsite.Web.Pages.Admin.Role
                 return Page();
 
             Role.IsDelete = false;
-            Role.RoleId = 99;
             int roleId = _permissionService.CreateRole(Role);
 
             //TODO Add Permission

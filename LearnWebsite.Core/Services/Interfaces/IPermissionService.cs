@@ -20,5 +20,7 @@ namespace LearnWebsite.Core.Services.Interfaces
         public Role GetRoleByRoleId(int roleId);
 
         public void UpdateRole(Role role);
+
+        public void DeleteRole(int roleId);
     }
 }

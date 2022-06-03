@@ -31,6 +31,13 @@ namespace LearnWebsite.Core.Services
             _context.SaveChanges();
         }
 
+        public int CreateRole(Role role)
+        {
+            _context.Roles.Add(role);
+            _context.SaveChanges();
+            return role.RoleId;
+        }
+
         public List<Role> GetAllRole()
         {
             return _context.Roles.ToList();

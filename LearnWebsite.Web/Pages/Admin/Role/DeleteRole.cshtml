@@ -1,0 +1,37 @@
+﻿@page "{RoleId}"
+@model LearnWebsite.Web.Pages.Admin.Role.DeleteRoleModel
+@{
+}
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">حذف نقش</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+
+    <div class="row">
+        <form method="post">
+            <div class="col-lg-8">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        اطلاعات نقش
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+
+                        <div class="account-information">
+                            <ul>
+                                <li> <i class="zmdi zmdi-assignment-account"></i> عنوان نقش :  @Model.CurrentRole.RoleTitle </li>
+                            </ul>
+                        </div>
+                        <input type="hidden" name="roleId" value="@Model.CurrentRole.RoleId.ToString()" />
+                        <input type="submit" value="حذف نقش" class="btn btn-danger" />
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -20,7 +20,7 @@ namespace LearnWebsite.Web.Pages.Admin.Role
             CurrentRole = _permissionService.GetRoleByRoleId(RoleId);
         }
 
-        public IActionResult OnPost()
+        public IActionResult OnPost(int RoleId)
         {
             if (!ModelState.IsValid)
                 return Page();

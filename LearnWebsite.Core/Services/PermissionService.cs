@@ -45,12 +45,17 @@ namespace LearnWebsite.Core.Services
 
         public Role GetRoleByRoleId(int roleId)
         {
-            return _context.Roles.Find(roleId);
+            return _context.Roles.Find(roleId);           
         }
 
         public void UpdateRole(Role role)
         {
-            _context.Roles.Update(role);
+            Role updateRole = GetRoleByRoleId(role.RoleId);
+
+            updateRole.RoleTitle = role.RoleTitle;
+
+            _context.Roles.Update(updateRole);
+            _context.SaveChanges();
         }
 
         public void UpdateUserRole(List<int> roleId, int userId)

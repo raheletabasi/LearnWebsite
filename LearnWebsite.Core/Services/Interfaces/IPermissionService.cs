@@ -14,5 +14,11 @@ namespace LearnWebsite.Core.Services.Interfaces
         public void AddRoleToUser(List<int> roleId, int userId);
 
         public void UpdateUserRole(List<int> roleId, int userId);
+
+        public int CreateRole(Role role);
+
+        public Role GetRoleByRoleId(int roleId);
+
+        public void UpdateRole(Role role);
     }
 }

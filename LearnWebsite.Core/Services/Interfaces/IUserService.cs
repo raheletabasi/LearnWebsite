@@ -12,6 +12,7 @@ namespace LearnWebsite.Core.Services.Interfaces
 {
     public interface IUserService
     {
+        #region User
         bool IsExistUserName(string userName);
         bool IsExistEmail(string email);
         int AddUser(User user);
@@ -27,6 +28,7 @@ namespace LearnWebsite.Core.Services.Interfaces
         UserInformationViewModel GetUserInformation(int userId);
         int GetUserIdByUserName(string userName);
         User GetUserByUserId(int userId);
+        #endregion
 
         #region Profile
         SideBarViewModel GetSideBar(string User);      

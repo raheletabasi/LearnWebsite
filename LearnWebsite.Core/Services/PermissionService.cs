@@ -18,6 +18,7 @@ namespace LearnWebsite.Core.Services
             _context = learnWebsiteContext;
         }
 
+        #region Role
         public void AddRoleToUser(List<int> roleId, int userId)
         {
             foreach (var roleItem in roleId)
@@ -38,6 +39,15 @@ namespace LearnWebsite.Core.Services
             return role.RoleId;
         }
 
+        public void DeleteRole(int roleId)
+        {
+            Role deletedRole = GetRoleByRoleId(roleId);
+            deletedRole.IsDelete = true;
+
+            _context.Roles.Remove(deletedRole);
+            _context.SaveChanges();
+        }
+
         public List<Role> GetAllRole()
         {
             return _context.Roles.ToList();
@@ -51,7 +61,6 @@ namespace LearnWebsite.Core.Services
         public void UpdateRole(Role role)
         {
             Role updateRole = GetRoleByRoleId(role.RoleId);
-
             updateRole.RoleTitle = role.RoleTitle;
 
             _context.Roles.Update(updateRole);
@@ -64,5 +73,6 @@ namespace LearnWebsite.Core.Services
 
             AddRoleToUser(roleId, userId);
         }
+        #endregion
     }
 }

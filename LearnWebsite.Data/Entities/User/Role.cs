@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LearnWebsite.Data.Entities.Permission;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -26,5 +27,6 @@ namespace LearnWebsite.Data.Entities.User
 
 
         public virtual IEnumerable<UserRole> UserRoles { get; set; }
+        public virtual List<RolePermission> RolePermissions { get; set; }
     }
 }

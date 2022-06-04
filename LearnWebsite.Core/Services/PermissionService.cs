@@ -18,6 +18,7 @@ namespace LearnWebsite.Core.Services
             _context = learnWebsiteContext;
         }
 
+        #region Role
         public void AddRoleToUser(List<int> roleId, int userId)
         {
             foreach (var roleItem in roleId)
@@ -72,5 +73,6 @@ namespace LearnWebsite.Core.Services
 
             AddRoleToUser(roleId, userId);
         }
+        #endregion
     }
 }

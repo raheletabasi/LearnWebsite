@@ -9,6 +9,7 @@ namespace LearnWebsite.Core.Services.Interfaces
 {
     public interface IPermissionService
     {
+        #region Role
         public List<Role> GetAllRole();
 
         public void AddRoleToUser(List<int> roleId, int userId);
@@ -22,5 +23,6 @@ namespace LearnWebsite.Core.Services.Interfaces
         public void UpdateRole(Role role);
 
         public void DeleteRole(int roleId);
+        #endregion
     }
 }

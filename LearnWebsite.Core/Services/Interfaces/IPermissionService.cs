@@ -1,4 +1,5 @@
-﻿using LearnWebsite.Data.Entities.User;
+﻿using LearnWebsite.Data.Entities.Permission;
+using LearnWebsite.Data.Entities.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,13 @@ namespace LearnWebsite.Core.Services.Interfaces
         public void UpdateRole(Role role);
 
         public void DeleteRole(int roleId);
+        #endregion
+
+        #region Permission
+        List<Permission> GetAllPermission();
+
+        void AddRolePermission(int roleId, List<int> permissions);
+
         #endregion
     }
 }

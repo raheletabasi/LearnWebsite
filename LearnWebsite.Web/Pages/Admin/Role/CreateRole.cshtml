@@ -1,7 +1,8 @@
 ﻿@page
 @model LearnWebsite.Web.Pages.Admin.Role.CreateRoleModel
+@using LearnWebsite.Data.Entities.Permission;
 @{
-
+    List<Permission> permissions = ViewData["Permission"] as List<Permission>;
 }
 
 <div id="page-wrapper">
@@ -38,7 +39,32 @@
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
-                        
+                        <ul>
+                            @foreach (var permissionItem in permissions.Where(p => p.ParentId == null))
+                            { 
+                                <li><input type="checkbox" name="selectedPermission" value="@permissionItem.PermissionId" /> @permissionItem.PermissionTitle </li>
+
+                                @if (permissions.Any(p => p.ParentId == permissionItem.PermissionId))
+                                {
+                                    <ul>
+                                        @foreach (var subPermissionItem in permissions.Where(p => p.ParentId == permissionItem.PermissionId))
+                                        {
+                                            <li><input type="checkbox" name="selectedPermission" value="@subPermissionItem.PermissionId" /> @subPermissionItem.PermissionTitle </li>
+
+                                            @if (permissions.Any(p => p.ParentId == subPermissionItem.PermissionId))
+                                            {
+                                                <ul>
+                                                    @foreach (var sub2PermissionItem in permissions.Where(p => p.ParentId == subPermissionItem.PermissionId))
+                                                    {
+                                                        <li><input type="checkbox" name="selectedPermission" value="@sub2PermissionItem.PermissionId" /> @sub2PermissionItem.PermissionTitle </li>
+                                                    }
+                                                </ul>
+                                            }
+                                        }
+                                    </ul>
+                                }
+                            }
+                        </ul>
                     </div>
                     <!-- /.panel-body -->
                 </div>

@@ -1,5 +1,6 @@
 ﻿using LearnWebsite.Core.Services.Interfaces;
 using LearnWebsite.Data.Contexts;
+using LearnWebsite.Data.Entities.Permission;
 using LearnWebsite.Data.Entities.User;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,19 @@ namespace LearnWebsite.Core.Services
             _context = learnWebsiteContext;
         }
 
-        #region Role
+        public void AddRolePermission(int roleId, List<int> permissions)
+        {
+            foreach (var item in permissions)
+                _context.RolePermissions.Add(
+                    new RolePermission()
+                    {
+                        RoleId = roleId,
+                        PermissionId =  item
+                    });
+
+            _context.SaveChanges();
+        }
+
         public void AddRoleToUser(List<int> roleId, int userId)
         {
             foreach (var roleItem in roleId)
@@ -48,6 +61,11 @@ namespace LearnWebsite.Core.Services
             _context.SaveChanges();
         }
 
+        public List<Permission> GetAllPermission()
+        {
+            return _context.Permissions.ToList();
+        }
+
         public List<Role> GetAllRole()
         {
             return _context.Roles.ToList();
@@ -73,6 +91,6 @@ namespace LearnWebsite.Core.Services
 
             AddRoleToUser(roleId, userId);
         }
-        #endregion
+
     }
 }

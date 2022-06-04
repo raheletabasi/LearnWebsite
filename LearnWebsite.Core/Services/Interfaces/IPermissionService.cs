@@ -28,8 +28,9 @@ namespace LearnWebsite.Core.Services.Interfaces
 
         #region Permission
         List<Permission> GetAllPermission();
-
+        List<int> GetPermissionByRoleId(int roleId);
         void AddRolePermission(int roleId, List<int> permissions);
+        void UpdateRolePermission(int roleId, List<int> permissions);
 
         #endregion
     }

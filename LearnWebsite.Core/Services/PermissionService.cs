@@ -61,6 +61,16 @@ namespace LearnWebsite.Core.Services
             _context.SaveChanges();
         }
 
+        public void UpdateRolePermission(int roleId, List<int> newRolePermission)
+        {
+            _context.RolePermissions
+                .Where(rp => rp.RoleId == roleId)
+                .ToList()
+                .ForEach(removeRole => _context.RolePermissions.Remove(removeRole));
+
+            AddRolePermission(roleId, newRolePermission);
+        }
+
         public List<Permission> GetAllPermission()
         {
             return _context.Permissions.ToList();
@@ -69,6 +79,14 @@ namespace LearnWebsite.Core.Services
         public List<Role> GetAllRole()
         {
             return _context.Roles.ToList();
+        }
+
+        public List<int> GetPermissionByRoleId(int roleId)
+        {
+            return _context.RolePermissions
+                .Where(rp => rp.RoleId == roleId)
+                .Select(rp => rp.PermissionId)
+                .ToList();
         }
 
         public Role GetRoleByRoleId(int roleId)

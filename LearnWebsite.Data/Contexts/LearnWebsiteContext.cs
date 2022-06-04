@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LearnWebsite.Data.Entities.Permission;
 
 namespace LearnWebsite.Data.Contexts
 {
@@ -27,10 +28,15 @@ namespace LearnWebsite.Data.Contexts
         public DbSet<CashWallet> CashWallets { get; set; }
         #endregion
 
+        #region Permission
+        public DbSet<Permission> Permissions { get; set; }
+        public DbSet<RolePermission> RolePermissions { get; set; }
+        #endregion
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasQueryFilter(u => !u.IsDelete);
-            modelBuilder.Entity<User>().HasQueryFilter(r => !r.IsDelete);
+            modelBuilder.Entity<Role>().HasQueryFilter(r => !r.IsDelete);
 
             modelBuilder.Entity<UserRole>().HasKey(e => new { e.RoleId, e.UserId });
             base.OnModelCreating(modelBuilder);

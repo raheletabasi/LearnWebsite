@@ -17,6 +17,8 @@ namespace LearnWebsite.Web.Pages.Admin.Role
         public Data.Entities.User.Role CurrentRole { get; set; }
         public void OnGet(int roleId)
         {
+            ViewData["Permission"] = _permissionService.GetAllPermission();
+            ViewData["SelectedPermissionFromDB"] = _permissionService.GetPermissionByRoleId(roleId);
             CurrentRole = _permissionService.GetRoleByRoleId(roleId);
         }
 

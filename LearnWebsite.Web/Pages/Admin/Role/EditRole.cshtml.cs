@@ -1,6 +1,7 @@
 using LearnWebsite.Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Collections.Generic;
 
 namespace LearnWebsite.Web.Pages.Admin.Role
 {
@@ -15,17 +16,20 @@ namespace LearnWebsite.Web.Pages.Admin.Role
 
         [BindProperty]
         public Data.Entities.User.Role CurrentRole { get; set; }
-        public void OnGet(int RoleId)
+        public void OnGet(int roleId)
         {
-            CurrentRole = _permissionService.GetRoleByRoleId(RoleId);
+            ViewData["Permission"] = _permissionService.GetAllPermission();
+            ViewData["SelectedPermissionFromDB"] = _permissionService.GetPermissionByRoleId(roleId);
+            CurrentRole = _permissionService.GetRoleByRoleId(roleId);
         }
 
-        public IActionResult OnPost(int RoleId)
+        public IActionResult OnPost(int roleId, List<int> selectedPermission)
         {
             if (!ModelState.IsValid)
                 return Page();
 
             _permissionService.UpdateRole(CurrentRole);
+            _permissionService.UpdateRolePermission(roleId, selectedPermission);
 
             return RedirectToPage("Index");
         }

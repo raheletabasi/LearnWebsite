@@ -31,6 +31,7 @@ namespace LearnWebsite.Core.Services.Interfaces
         List<int> GetPermissionByRoleId(int roleId);
         void AddRolePermission(int roleId, List<int> permissions);
         void UpdateRolePermission(int roleId, List<int> permissions);
+        bool CheckUserPermission(int permissionId, string userName);
 
         #endregion
     }

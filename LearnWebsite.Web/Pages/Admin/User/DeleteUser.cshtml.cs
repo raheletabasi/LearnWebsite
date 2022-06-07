@@ -5,6 +5,7 @@ using static LearnWebsite.Core.DTOs.UserPanelViewModel;
 
 namespace LearnWebsite.Web.Pages.Admin.User
 {
+    [PermissionChecker(4)]
     public class DeleteUserModel : PageModel
     {
         IUserService _userServicve;

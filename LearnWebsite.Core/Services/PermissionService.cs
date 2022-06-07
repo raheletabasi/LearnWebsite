@@ -13,10 +13,12 @@ namespace LearnWebsite.Core.Services
     public class PermissionService : IPermissionService
     {
         LearnWebsiteContext _context;
+        IUserService _userService;
 
-        public PermissionService(LearnWebsiteContext learnWebsiteContext)
+        public PermissionService(LearnWebsiteContext learnWebsiteContext, IUserService userService)
         {
             _context = learnWebsiteContext;
+            _userService = userService;
         }
 
         public void AddRolePermission(int roleId, List<int> permissions)
@@ -110,5 +112,25 @@ namespace LearnWebsite.Core.Services
             AddRoleToUser(roleId, userId);
         }
 
+        public bool CheckUserPermission(int permissionId, string userName)
+        {
+            int userId = _userService.GetUserIdByUserName(userName);
+
+            List<int> userRoles = _context.UserRoles
+                                    .Where(ur => ur.UserId == userId)
+                                    .Select(ur => ur.RoleId)
+                                    .ToList();
+
+            if (!userRoles.Any())
+                return false;
+
+            List<int> RolePermissions = _context.RolePermissions
+                                          .Where(ur => ur.PermissionId == permissionId)
+                                          .Select(ur => ur.RoleId)
+                                          .ToList();
+
+            return RolePermissions.Any(rp => userRoles.Contains(rp));
+
+        }
     }
 }

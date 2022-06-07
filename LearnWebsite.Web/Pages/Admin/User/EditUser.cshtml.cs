@@ -7,6 +7,7 @@ using System.Collections.Generic;
 
 namespace LearnWebsite.Web.Pages.Admin.User
 {
+    [PermissionChecker(5)]
     public class EditUserModel : PageModel
     {
         IUserService _userService;

@@ -1,4 +1,5 @@
 using LearnWebsite.Core.DTOs;
+using LearnWebsite.Core.Security;
 using LearnWebsite.Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 
 namespace LearnWebsite.Web.Pages.Admin.User
 {
+    [PermissionChecker(3)]
     public class CreateUserModel : PageModel
     {
         IUserService _userService;

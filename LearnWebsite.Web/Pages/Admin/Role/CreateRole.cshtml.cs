@@ -1,3 +1,4 @@
+using LearnWebsite.Core.Security;
 using LearnWebsite.Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -5,6 +6,7 @@ using System.Collections.Generic;
 
 namespace LearnWebsite.Web.Pages.Admin.Role
 {
+    [PermissionChecker(7)]
     public class CreateRoleModel : PageModel
     {
         IPermissionService _permissionService;

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace LearnWebsite.Web.Pages.Admin.Role
 {
+    [PermissionChecker(8)]
     public class DeleteRoleModel : PageModel
     {
         IPermissionService _permissionService;

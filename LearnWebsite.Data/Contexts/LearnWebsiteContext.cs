@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LearnWebsite.Data.Entities.Permission;
+using LearnWebsite.Data.Entities.Course;
 
 namespace LearnWebsite.Data.Contexts
 {
@@ -33,10 +34,15 @@ namespace LearnWebsite.Data.Contexts
         public DbSet<RolePermission> RolePermissions { get; set; }
         #endregion
 
+        #region Course
+        public DbSet<CourseGroup> CourseGroups { get; set; }
+        #endregion
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasQueryFilter(u => !u.IsDelete);
             modelBuilder.Entity<Role>().HasQueryFilter(r => !r.IsDelete);
+            modelBuilder.Entity<CourseGroup>().HasQueryFilter(cg => !cg.IsDelete);
 
             modelBuilder.Entity<UserRole>().HasKey(e => new { e.RoleId, e.UserId });
             base.OnModelCreating(modelBuilder);

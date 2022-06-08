@@ -50,7 +50,7 @@
     </div>
 
     <!-- main manu -->
-    <partial name="_MainMenu" />
+    @await Component.InvokeAsync("CourseGroup");
     <!-- /main manu -->
     <!-- content -->
     @RenderBody();
